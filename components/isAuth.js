@@ -32,7 +32,7 @@ const isAuth = (Component) => {
     useEffect(() => {
       if (!auth) {
         localStorage.clear();
-        router.replace("/login");
+        // router.replace("/login");
       }
     }, []);
 

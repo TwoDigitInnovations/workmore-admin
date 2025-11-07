@@ -4,8 +4,6 @@ import React, { useContext } from "react";
 import { MdDashboard } from "react-icons/md";
 import { ImCross } from "react-icons/im";
 import { userContext } from "@/pages/_app";
-import { BiSolidCategory } from "react-icons/bi";
-import { AiFillProduct } from "react-icons/ai";
 import { FaCircleQuestion } from "react-icons/fa6";
 import { FaShoppingBag } from "react-icons/fa";
 import { FaUserTie } from "react-icons/fa";
@@ -22,6 +20,7 @@ import { MdInventory2 } from "react-icons/md";
 import { RiEBike2Fill } from "react-icons/ri";
 import { TbPasswordFingerprint } from "react-icons/tb";
 import Swal from "sweetalert2";
+import { X } from "lucide-react";
 
 const SidePannel = ({ setOpenTab, openTab }) => {
   const [user, setUser] = useContext(userContext);
@@ -137,16 +136,16 @@ const SidePannel = ({ setOpenTab, openTab }) => {
     <>
       <div className="xl:w-[280px] fixed top-0 left-0 z-20  md:w-[250px] sm:w-[200px] hidden sm:grid grid-rows-5  overflow-hidden">
         <div className="">
-          <div className="bg-[#F38529] py-5 overflow-y-scroll h-screen  scrollbar-hide">
+          <div className="bg-custom-gray py-5 overflow-y-scroll h-screen  scrollbar-hide">
             <div
-              className="bg-[#F38529] pt-5 pb-5 row-span-1 flex items-center justify-center cursor-pointer mx-5 rounded"
+              className="pt-5 pb-5 row-span-1 flex items-center justify-center cursor-pointer mx-5 rounded"
               onClick={() => router.push("/")}
             >
-              {/* w-full pb-7*/}
+             
               <img
-                src="/Logo2.png"
+                src="/Logo.png"
                 alt=""
-                className="w-[202px] h-[52px] object-contain"
+                className="w-full h-[62px] object-contain"
               />
             </div>
 
@@ -178,21 +177,21 @@ const SidePannel = ({ setOpenTab, openTab }) => {
       </div>
 
       <div
-        className={`w-full absolute top-0 left-0 z-40 sm:hidden flex flex-col h-screen max-h-screen overflow-hidden  bg-[#F38529] ${
+        className={`w-full absolute top-0 left-0 z-40 sm:hidden flex flex-col h-screen max-h-screen overflow-hidden  bg-custom-gray ${
           openTab ? "scale-x-100" : "scale-x-0"
         } transition-all duration-300 origin-left`}
       >
         <div className=" row-span-1  w-full text-white  relative ">
-          <ImCross
+          <X
             className="absolute text-white top-4 right-4 z-40 text-2xl"
             onClick={() => setOpenTab(!openTab)}
           />
           <div className="flex flex-col justify-items-start gap-3 w-full  p-3">
             <div className="p-1 rounded overflow-hidden">
               <img
-                src="/Logo2.png"
+                src="/Logo.png"
                 alt=""
-                className="w-[212px] h-[48px] object-contain"
+                className="w-full h-[68px] object-contain"
               />
             </div>
             <div className="flex ms-2 justify-between">

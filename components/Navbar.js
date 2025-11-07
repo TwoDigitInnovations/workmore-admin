@@ -26,7 +26,7 @@ const Navbar = ({ setOpenTab, openTab }) => {
       showCancelButton: true,
       confirmButtonText: "Yes",
       cancelButtonText: "No",
-      confirmButtonColor: "#F38529",
+      confirmButtonColor: "#D9AB83",
       customClass: {
         confirmButton: 'px-12 rounded-xl',
         title: 'text-[20px] text-black',
@@ -55,8 +55,8 @@ const Navbar = ({ setOpenTab, openTab }) => {
           {/* Logo */}
           <div className="flex items-center">
             <img 
-              className="h-10 w-auto object-contain" 
-              src="/Logo2.png" 
+              className="h-14 w-auto object-contain" 
+              src="/Logo.png" 
               alt="Logo"
             />
           </div>
@@ -89,7 +89,7 @@ const Navbar = ({ setOpenTab, openTab }) => {
 
               <button 
                 onClick={handleLogout}
-                className="bg-[#F38529] hover:bg-orange-600 text-white rounded-lg px-4 py-2 flex items-center space-x-2 transition-colors duration-200"
+                className="bg-custom-gray hover:bg-orange-600 text-white rounded-lg px-4 py-2 flex items-center space-x-2 transition-colors duration-200"
               >
                 <span>Sign Out</span>
                 <PiSignOutFill size={16} />
@@ -129,13 +129,6 @@ const Navbar = ({ setOpenTab, openTab }) => {
                 </div>
               </div>
               
-              {/* <button 
-                onClick={handleLogout}
-                className="w-full bg-[#F38529] hover:bg-orange-600 text-white rounded-lg py-2 px-4 flex items-center justify-center space-x-2 transition-colors duration-200"
-              >
-                <span>Sign Out</span>
-                <PiSignOutFill size={16} />
-              </button> */}
             </div>
           ) : (
             <Link href="/login">
