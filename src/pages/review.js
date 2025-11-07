@@ -14,7 +14,7 @@ import {
   Image as ImageIcon,
   ZoomIn,
 } from "lucide-react";
-import { Api } from "@/services/service";
+import { Api } from "../../services/service";
 import { useRouter } from "next/router";
 import Swal from "sweetalert2";
 

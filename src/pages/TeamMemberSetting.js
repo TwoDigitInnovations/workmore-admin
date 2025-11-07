@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect } from "react";
 import { MdOutlineFileUpload, MdEdit, MdDelete } from "react-icons/md";
 import { IoCloseCircleOutline } from "react-icons/io5";
 import Compressor from "compressorjs";
-import { Api, ApiFormData } from "@/services/service";
+import { Api, ApiFormData } from "../../services/service";
 import { useRouter } from "next/router";
 
 const TeamMemberManagement = (props) => {

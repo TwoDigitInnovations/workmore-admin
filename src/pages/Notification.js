@@ -1,6 +1,6 @@
 import React, { useMemo, useState, useEffect, useContext } from "react";
 import Table from "@/components/table";
-import { Api } from "@/services/service";
+import { Api } from "../../services/service";
 import { useRouter } from "next/router";
 import { userContext } from "./_app";
 import isAuth from "@/components/isAuth";

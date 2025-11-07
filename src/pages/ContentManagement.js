@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import dynamic from "next/dynamic";
-import { Api } from "@/services/service";
+import { Api } from "../../services/service";
 import { useRouter } from "next/router";
 import Swal from "sweetalert2";
 import moment from "moment";

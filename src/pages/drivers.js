@@ -1,12 +1,11 @@
 import React, { useMemo, useState, useEffect } from "react";
 import Table, { indexID } from "@/components/table";
-import { Api } from "@/services/service";
+import { Api } from "../../services/service";
 import { useRouter } from "next/router";
 import moment from "moment";
 import Dialog from "@mui/material/Dialog";
 import { IoCloseCircleOutline } from "react-icons/io5";
 import Avatar from "@mui/material/Avatar";
-import { Swiper, SwiperSlide, useSwiper } from "swiper/react";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/effect-fade";

@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from 'react'
-import { IoIosAdd } from "react-icons/io";
-import { IoIosRemove } from "react-icons/io";
 import { useRouter } from "next/router";
-import { Api } from '@/services/service';
+import { Api } from '../../../services/service';
 import { produce } from 'immer';
 // import SelectSearch from 'react-select-search';
 // import 'react-select-search/style.css'

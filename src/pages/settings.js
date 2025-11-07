@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect } from "react";
 import { MdOutlineFileUpload } from "react-icons/md";
 import { useRouter } from "next/router";
 import { IoCloseCircleOutline } from "react-icons/io5";
-import { Api, ApiFormData } from "@/services/service";
+import { Api, ApiFormData } from "../../services/service";
 import isAuth from "@/components/isAuth";
 import Compressor from "compressorjs";
 import { LiaEdit } from "react-icons/lia";

@@ -1,6 +1,6 @@
 import React, { useState, useContext } from 'react';
 import { Eye, EyeOff, Lock, AlertTriangle, Check } from 'lucide-react';
-import { Api } from '@/services/service';
+import { Api } from "../../services/service";
 import { useRouter } from 'next/router';
 import { userContext } from '@/pages/_app';
 

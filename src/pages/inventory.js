@@ -2,7 +2,7 @@ import React, { useMemo, useState, useEffect, useContext } from "react";
 import Table from "@/components/table";
 import { FiEdit } from "react-icons/fi";
 import { RiDeleteBinLine } from "react-icons/ri";
-import { Api } from "@/services/service";
+import { Api } from "../../services/service";
 import { useRouter } from "next/router";
 import Swal from "sweetalert2";
 import { userContext } from "./_app";

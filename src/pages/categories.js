@@ -1,4 +1,4 @@
-import { Api, ApiFormData } from "@/services/service";
+import { Api, ApiFormData } from "../../services/service";
 import React, { useState, useEffect, useRef } from "react";
 import { useRouter } from "next/router";
 import { FiEdit } from "react-icons/fi";

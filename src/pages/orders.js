@@ -5,7 +5,7 @@ import { useState } from "react";
 import Table from "@/components/table";
 import { indexID } from "@/components/reported/customTableAct";
 import isAuth from "@/components/isAuth";
-import { Api } from "@/services/service";
+import { Api } from "../../services/service";
 import { useRouter } from "next/router";
 import moment from "moment";
 import { Drawer } from "@mui/material";
