@@ -1,5 +1,5 @@
 import React, { useMemo, useState, useEffect } from "react";
-import Table, { indexID } from "@/components/table";
+import Table, { indexID } from "../../components/table";
 import { Api } from "../../services/service";
 import { useRouter } from "next/router";
 import moment from "moment";
@@ -10,7 +10,7 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/effect-fade";
 import { Navigation } from "swiper/modules";
-import isAuth from "@/components/isAuth";
+import isAuth from "../../components/isAuth";
 import { Carousel } from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // required CSS
 

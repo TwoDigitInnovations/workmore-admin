@@ -5,7 +5,7 @@ import { FiEdit } from "react-icons/fi";
 import { IoCloseCircleOutline } from "react-icons/io5";
 import Swal from "sweetalert2";
 import { MdOutlineFileUpload } from "react-icons/md";
-import isAuth from "@/components/isAuth";
+import isAuth from "../../components/isAuth";
 import Compressor from "compressorjs";
 
 function Categories(props) {

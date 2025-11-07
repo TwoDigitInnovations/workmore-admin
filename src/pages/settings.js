@@ -3,11 +3,10 @@ import { MdOutlineFileUpload } from "react-icons/md";
 import { useRouter } from "next/router";
 import { IoCloseCircleOutline } from "react-icons/io5";
 import { Api, ApiFormData } from "../../services/service";
-import isAuth from "@/components/isAuth";
+import isAuth from "../../components/isAuth";
 import Compressor from "compressorjs";
 import { LiaEdit } from "react-icons/lia";
 import { MdDelete } from "react-icons/md";
-import PasswordManager from "@/pages/passwordmanager";
 
 function Settings(props) {
   const router = useRouter();

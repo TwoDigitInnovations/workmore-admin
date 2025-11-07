@@ -3,7 +3,7 @@ import html2canvas from "html2canvas";
 import jsPDF from "jspdf";
 import { MdFileDownload } from "react-icons/md";
 import Barcode from "react-barcode";
-import { Api } from "@/services/service";
+import { Api } from "../services/service";
 import { useRouter } from "next/router";
 
 const Invoice = ({ order }) => {

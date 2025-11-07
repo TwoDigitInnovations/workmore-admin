@@ -1,10 +1,10 @@
 import React, { useMemo, useState, useEffect, useContext } from "react";
-import Table from "@/components/table";
+import Table from "../../components/table";
 import { Api } from "../../services/service";
 import { useRouter } from "next/router";
 import { userContext } from "./_app";
-import isAuth from "@/components/isAuth";
-import { indexID } from "@/components/reported/customTableAct";
+import isAuth from "../../components/isAuth";
+import { indexID } from "../../components/reported/customTableAct";
 import { Search, Filter, Mail, User, Calendar, ShoppingBag, DollarSign, Phone, X } from "lucide-react";
 import Swal from "sweetalert2";
 

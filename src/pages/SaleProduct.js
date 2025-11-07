@@ -8,7 +8,7 @@ import {
   Calendar,
   Timer,
 } from "lucide-react";
-import isAuth from "@/components/isAuth";
+import isAuth from "../../components/isAuth";
 import { Api } from "../../services/service";
 import { useRouter } from "next/router";
 import { userContext } from "./_app";

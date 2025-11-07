@@ -4,7 +4,7 @@ import { useRouter } from "next/router";
 import { FiEdit } from "react-icons/fi";
 import { IoCloseCircleOutline } from "react-icons/io5";
 import Swal from "sweetalert2";
-import isAuth from "@/components/isAuth";
+import isAuth from "../../components/isAuth";
 import { DateTime } from "luxon";
 import { IoEyeSharp } from "react-icons/io5";
 import { RxCross2 } from "react-icons/rx";

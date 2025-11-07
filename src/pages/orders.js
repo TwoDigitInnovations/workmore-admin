@@ -2,18 +2,14 @@
 
 import React, { useMemo, useEffect, useContext } from "react";
 import { useState } from "react";
-import Table from "@/components/table";
-import { indexID } from "@/components/reported/customTableAct";
-import isAuth from "@/components/isAuth";
+import Table from "../../components/table";
+import isAuth from "../../components/isAuth";
 import { Api } from "../../services/service";
 import { useRouter } from "next/router";
 import moment from "moment";
 import { Drawer } from "@mui/material";
 import {
-  IoAddSharp,
   IoCloseCircleOutline,
-  IoList,
-  IoRemoveSharp,
 } from "react-icons/io5";
 import { userContext } from "./_app";
 import Swal from "sweetalert2";
@@ -27,7 +23,7 @@ import {
   X,
 } from "lucide-react";
 import Barcode from "react-barcode";
-import Invoice from "@/components/Invoice";
+import Invoice from "../../components/Invoice";
 
 function Orders(props) {
   const router = useRouter();

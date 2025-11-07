@@ -29,8 +29,6 @@ export default function Login(props) {
 
       const res = await Api("post", "login", { ...userDetail }, router);
 
-
-      console.log("res================>", res);
       if (res?.status) {
         if (res.data.type === "ADMIN" || res.data.type === "EMPLOYEE") {
           localStorage.setItem("userDetail", JSON.stringify(res.data));

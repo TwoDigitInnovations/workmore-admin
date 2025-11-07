@@ -33,10 +33,10 @@ export default function App({ Component, pageProps }) {
     const user = localStorage.getItem("userDetail");
     if (user) {
       setUser(JSON.parse(user));
-    // } else {
-    //   if (router.route !== "/login" && router.route !== "/signup") {
-    //     router.push("/login");
-    //   }
+    } else {
+      if (router.route !== "/login" && router.route !== "/signup") {
+        router.push("/login");
+      }
     }
   };
 

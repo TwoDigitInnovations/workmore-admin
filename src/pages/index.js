@@ -169,7 +169,7 @@ function Home(props) {
           <div>
             <h1 className="text-2xl md:text-3xl font-bold text-gray-800 flex items-center">
               <span
-                className={`inline-block w-2 h-8 bg-[${PRIMARY_COLOR}] mr-3 rounded mb-2`}
+                className={`inline-block w-2 h-8 bg-custom-gray mr-3 rounded mb-2`}
               ></span>
               Dashboard
             </h1>
@@ -179,7 +179,7 @@ function Home(props) {
           </div>
           <div className="bg-white shadow-sm rounded-lg p-2">
             <div
-              className={`bg-[${PRIMARY_COLOR}] text-white text-sm font-medium px-4 py-2 rounded-md`}
+              className={`bg-custom-gray text-white text-sm font-medium px-4 py-2 rounded-md`}
             >
               Today
             </div>

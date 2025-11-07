@@ -1,7 +1,7 @@
 import axios from "axios";
-// const ConstantsUrl = "";
+
 const ConstantsUrl = "http://localhost:3004/api/";
-// const ConstantsUrl = "";
+// const ConstantsUrl = "https://workmore.plotinlucknow.com/api/";
 
 function Api(method, url, data, router) {
   return new Promise(function (resolve, reject) {
