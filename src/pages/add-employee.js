@@ -3,7 +3,7 @@ import { userContext } from "./_app";
 import { CiUser, CiMail, CiLock, CiPhone } from "react-icons/ci";
 import { Api } from "../../services/service";
 import { useRouter } from "next/router";
-import isAuth from "@/components/isAuth";
+import isAuth from "../../components/isAuth";
 
 function AddEmployee({ loader, toaster }) {
   const router = useRouter();
