@@ -356,7 +356,7 @@ function Settings(props) {
       <section className="w-full bg-gray-50 md:p-8 p-4 h-[90vh] overflow-y-scroll  scrollbar-hide overflow-scroll pb-32">
         <div className="mb-8">
           <h2 className="text-gray-800 font-bold md:text-3xl text-2xl mb-4 flex items-center">
-            <span className="w-1 h-8 bg-[#F38529] rounded mr-3"></span>
+            <span className="w-1 h-8 bg-custom-gray rounded mr-3"></span>
             Banner Management
           </h2>
 
@@ -436,7 +436,7 @@ function Settings(props) {
                   </p>
                   <button
                     type="button"
-                    className="text-white bg-[#F38529] hover:bg-[#e47a1f] transition-colors rounded-lg text-md py-2.5 px-6 font-medium shadow-sm"
+                    className="text-white bg-custom-gray transition-colors rounded-lg text-md py-2.5 px-6 font-medium shadow-sm"
                     onClick={() => {
                       if (singleImg === "") {
                         props.toaster({
@@ -482,7 +482,7 @@ function Settings(props) {
                 <div className="mt-6">
                   <button
                     type="submit"
-                    className="text-white bg-[#F38529] hover:bg-[#e47a1f] transition-colors rounded-lg text-md font-medium py-2.5 px-6 shadow-sm"
+                    className="text-white bg-custom-gray  transition-colors rounded-lg text-md font-medium py-2.5 px-6 shadow-sm"
                   >
                     Submit
                   </button>
@@ -494,7 +494,7 @@ function Settings(props) {
 
 
 
-        <div className="mb-8">
+        {/* <div className="mb-8">
           <h2 className="text-gray-800 font-bold md:text-3xl text-2xl mb-4 flex items-center">
             <span className="w-1 h-8 bg-[#F38529] rounded mr-3"></span>
             Shipping Cost
@@ -668,7 +668,7 @@ function Settings(props) {
                   </p>
                 </div>
 
-                {/* Zipcode Table */}
+                {/* Zipcode Table 
                 <div className="mt-6">
                   <h3 className="text-gray-700 text-lg font-medium mb-4">
                     Available Zip Codes For Delivery
@@ -723,7 +723,7 @@ function Settings(props) {
               </div>
             </form>
           </section>
-        </div>
+        </div> */}
        
       </section>
     </>

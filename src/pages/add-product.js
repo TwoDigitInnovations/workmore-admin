@@ -1,5 +1,4 @@
 import React, { useContext, useRef, useState, useEffect } from "react";
-import { MultiSelect } from "react-multi-select-component";
 import { IoAddSharp, IoCloseCircleOutline } from "react-icons/io5";
 import { IoIosClose } from "react-icons/io";
 import { userContext } from "./_app";
@@ -7,89 +6,15 @@ import "react-color-palette/css";
 import { Api, ApiFormData } from "../../services/service";
 import { useRouter } from "next/router";
 import { produce } from "immer";
-import isAuth from "@/components/isAuth";
+import isAuth from "../../components/isAuth";
 import Compressor from "compressorjs";
-import dynamic from "next/dynamic";
-import Barcode from "react-barcode";
-
-const size = [
-  {
-    label: "XXS",
-    value: "XXS",
-    total: 0,
-    sell: 0,
-  },
-  {
-    label: "XS",
-    value: "XS",
-    total: 0,
-    sell: 0,
-  },
-  {
-    label: "S",
-    value: "S",
-    total: 0,
-    sell: 0,
-  },
-  {
-    label: "M",
-    value: "M",
-    total: 0,
-    sell: 0,
-  },
-  {
-    label: "L",
-    value: "L",
-    total: 0,
-    sell: 0,
-  },
-  {
-    label: "XL",
-    value: "XL",
-    total: 0,
-    sell: 0,
-  },
-  {
-    label: "XXL",
-    value: "XXL",
-    total: 0,
-    sell: 0,
-  },
-  {
-    label: "3xl",
-    value: "3xl",
-    total: 0,
-    sell: 0,
-  },
-  {
-    label: "4xl",
-    value: "4xl",
-    total: 0,
-    sell: 0,
-  },
-  {
-    label: "5xl",
-    value: "5xl",
-    total: 0,
-    sell: 0,
-  },
-  {
-    label: "For adult",
-    value: "For adult",
-    total: 0,
-    sell: 0,
-  },
-];
-
-const JoditEditor = dynamic(() => import("jodit-react"), { ssr: false });
 
 function AddProduct(props) {
   const router = useRouter();
-  const f = useRef(null);
+  const [images, setImages] = useState([]); // ✅ store multiple image URLs
+  const fileRef = useRef();
 
   const unitData = [
-    { name: "Lb", value: "lb" },
-    { name: "Litre", value: "litre" },
     { name: "Each", value: "each" },
     { name: "Piece", value: "piece" },
     { name: "Pack", value: "pack" },
@@ -97,54 +22,31 @@ function AddProduct(props) {
     { name: "Bag", value: "bag" },
   ];
 
-  //   const handleChange = (e) => {
-  //   const value = e.target.value;
-  //   const array = value
-  //     .split(/,|\n/)      // split by comma or newline
-  //     .map((item) => item.trim())
-  //     .filter((item) => item !== "");
-  //   setAddProductsData({
-  //     ...addProductsData,
-  //     relatedName: array,
-  //   });
-  // };
-
   const [addProductsData, setAddProductsData] = useState({
     name: "",
-    vietnamiesName: "",
     slug: "",
+    image: [],
     category: [],
     relatedName: [],
-    disclaimer: "",
     origin: "",
-    ReturnPolicy: "",
     metadescription: "",
     metatitle: "",
     imageAltName: "",
     Warning: "",
     Quantity: "",
-    Allergens: "",
     unit: "",
     other_price: "",
     our_price: "",
-    selflife: "",
     expirydate: "",
     manufacturername: "",
     manufactureradd: "",
-    short_description: "",
-    tax_code: "",
-    long_description: "",
+    description: "",
     price_slot: [
       {
         value: 0,
         price: 0,
       },
     ],
-    isShipmentAvailable: "",
-    isNextDayDeliveryAvailable: "",
-    isInStoreAvailable: "",
-    isReturnAvailable: "",
-    isCurbSidePickupAvailable: "",
   });
 
   const [categoryData, setCategoryData] = useState([]);
@@ -155,17 +57,6 @@ function AddProduct(props) {
     setRelatedNames(e.target.value);
   };
 
-  const [varients, setvarients] = useState([
-    {
-      color: "",
-      image: [],
-      BarCode: "",
-      selected: [],
-    },
-  ]);
-
-  const [singleImg, setSingleImg] = useState("");
-
   useEffect(() => {
     getCategory();
   }, []);
@@ -175,9 +66,6 @@ function AddProduct(props) {
       getProductById();
     }
   }, []);
-
-
-  console.log("dfghjkl", addProductsData)
 
   const formatDate = (date) => {
     if (!date) return "";
@@ -195,39 +83,23 @@ function AddProduct(props) {
           setAddProductsData({
             name: res?.data?.name,
             slug: res?.data?.slug,
-            vietnamiesName: res?.data?.vietnamiesName,
-            disclaimer: res?.data?.disclaimer,
             metatitle: res?.data?.metatitle,
             imageAltName: res?.data?.imageAltName,
             metadescription: res?.data?.metadescription,
             category: res?.data?.category?._id || "",
-            Warning: res?.data?.Warning,
             categoryName: res?.data?.category?.name || "",
-            ReturnPolicy: res?.data?.ReturnPolicy,
-            short_description: res?.data?.short_description,
-            long_description: res?.data?.long_description,
-            Allergens: res?.data?.Allergens,
+            description: res?.data?.description,
             Quantity: res?.data?.Quantity,
             price_slot: res?.data?.price_slot,
             ...res.data,
-            attributes: res?.data?.attributes,
-            tax_code: res?.data?.tax_code,
-            manufactureradd: res?.data?.manufactureradd,
             manufacturername: res?.data?.manufacturername,
             expirydate: formatDate(res?.data?.expirydate),
             other_price: res?.data?.other_price,
             our_price: res?.data?.our_price,
             unit: res?.data?.price_slot[0]?.unit,
-            isShipmentAvailable: res?.data?.isShipmentAvailable,
-            isReturnAvailable: res?.data?.isReturnAvailable,
-            isNextDayDeliveryAvailable: res?.data?.isNextDayDeliveryAvailable,
-            isInStoreAvailable: res?.data?.isInStoreAvailable,
-            isCurbSidePickupAvailable: res?.data?.isCurbSidePickupAvailable,
           });
           setRelatedNames(res?.data?.relatedName?.join(", "));
-          setvarients(res?.data?.varients);
-          setBarcodeValue(res?.data?.BarCode);
-          setInputValue(res?.data?.BarCode);
+          setImages(res?.data?.image)
         }
       },
       (err) => {
@@ -271,10 +143,10 @@ function AddProduct(props) {
 
     const data = {
       ...addProductsData,
+      image: images,
       userid: user?._id,
-      BarCode: inputValue,
       relatedName: array,
-      varients,
+
     };
 
     props.loader(true);
@@ -289,14 +161,8 @@ function AddProduct(props) {
             unit: "",
             our_price: "",
             other_price: "",
-            tax_code: "",
-            origin: "",
-            selflife: "",
-            expirydate: "",
             manufacturername: "",
-            manufactureradd: "",
-            short_description: "",
-            long_description: "",
+            description: "",
             price_slot: [
               {
                 value: 0,
@@ -304,14 +170,6 @@ function AddProduct(props) {
               },
             ],
           });
-          setvarients([
-            {
-              color: "",
-              image: [],
-              BarCode: "",
-              selected: [],
-            },
-          ]);
           router.push("/inventory");
           props.toaster({ type: "success", message: res.data?.message });
         } else {
@@ -334,9 +192,8 @@ function AddProduct(props) {
     const data = {
       ...addProductsData,
       userid: user?._id,
-      varients,
-      BarCode: inputValue,
       relatedName: array,
+      image: images,
       id: router?.query?.id,
     };
 
@@ -355,15 +212,8 @@ function AddProduct(props) {
             unit: "",
             our_price: "",
             other_price: "",
-            tax_code: "",
-            origin: "",
-            selflife: "",
-            expirydate: "",
             manufacturername: "",
-            manufactureradd: "",
-            short_description: "",
-            // gender: "",
-            long_description: "",
+            description: "",
             price_slot: [
               {
                 value: 0,
@@ -371,13 +221,6 @@ function AddProduct(props) {
               },
             ],
           });
-          setvarients([
-            {
-              color: "",
-              image: [],
-              selected: [],
-            },
-          ]);
           router.push("/inventory");
           props.toaster({ type: "success", message: res.data?.message });
         } else {
@@ -392,9 +235,11 @@ function AddProduct(props) {
     );
   };
 
-  const handleImageChange = (event, i) => {
+
+  const handleImageChange = (event) => {
     const file = event.target.files[0];
     if (!file) return;
+
     const fileSizeInMb = file.size / (1024 * 1024);
     if (fileSizeInMb > 1) {
       props.toaster({
@@ -402,56 +247,36 @@ function AddProduct(props) {
         message: "Too large file. Please upload a smaller image",
       });
       return;
-    } else {
-      new Compressor(file, {
-        quality: 0.6,
-        success: (compressedResult) => {
-          console.log("daat compressResult", compressedResult);
-          const data = new FormData();
-          data.append("file", compressedResult);
-          props.loader(true);
-          ApiFormData("post", "user/fileupload", data, router).then(
-            (res) => {
-              props.loader(false);
-              console.log("res================>", res.data.file);
-              if (res.status) {
-                setvarients(
-                  produce((draft) => {
-                    draft[i].image.push(res.data.file);
-                  })
-                );
-                setSingleImg(res.data.file);
-                props.toaster({ type: "success", message: res.data.message });
-              }
-            },
-            (err) => {
-              props.loader(false);
-              console.log(err);
-              props.toaster({ type: "error", message: err?.message });
-            }
-          );
-          // compressedResult has the compressed file.
-          // Use the compressed file to upload the images to your server.
-          //   setCompressedFile(res)
-        },
-      });
     }
-    const reader = new FileReader();
+
+    // ✅ compress file
+    new Compressor(file, {
+      quality: 0.6,
+      success: (compressedResult) => {
+        const data = new FormData();
+        data.append("file", compressedResult);
+        props.loader(true);
+
+        ApiFormData("post", "user/fileupload", data)
+          .then((res) => {
+            props.loader(false);
+            if (res.status) {
+              setImages((prev) => [...prev, res.data.file]); // ✅ add to array
+              props.toaster({ type: "success", message: res.data.message });
+            }
+          })
+          .catch((err) => {
+            props.loader(false);
+            props.toaster({ type: "error", message: err?.message });
+          });
+      },
+    });
   };
 
-  const closeIcon = (item, inx, imagesArr, i) => {
-    const nextState = produce(imagesArr, (draftState) => {
-      if (inx !== -1) {
-        draftState.splice(inx, 1);
-      }
-    });
-    setvarients(
-      produce((draft) => {
-        // console.log(draft)
-        draft[i].image = nextState;
-      })
-    );
+  const handleDelete = (imgUrl) => {
+    setImages((prev) => prev.filter((img) => img !== imgUrl));
   };
+
 
   const priceSlotsCloseIcon = (item, i) => {
     console.log(item, i);
@@ -463,20 +288,13 @@ function AddProduct(props) {
     setAddProductsData({ ...addProductsData, price_slot: data });
   };
 
-  const [inputValue, setInputValue] = useState("");
-  const [barcodeValue, setBarcodeValue] = useState("");
 
-  const handleGenerate = () => {
-    if (inputValue.trim() !== "") {
-      setBarcodeValue(inputValue);
-    }
-  };
   return (
-    <section className="w-full h-full  bg-transparent md:pt-5 pt-5 pb-5 pl-5 pr-5">
-      <div className="md:pt-[0px] pt-[0px] h-full overflow-scroll no-scrollbar">
-        <p className="text-black font-bold md:text-[32px] text-2xl md:ms-5 ms-5">
+    <section className="w-full h-full  bg-transparent pt-5 px-6">
+      <div className="h-[90vh] overflow-y-scroll  scrollbar-hide overflow-scroll">
+        <p className="text-black font-bold md:text-[32px] text-2xl ">
           <span
-            className={`inline-block w-2 h-8 bg-[#F38529]  mr-3 rounded `}
+            className={`inline-block w-2 h-8 bg-custom-gray  mr-3 rounded `}
           ></span>
           Add Product
         </p>
@@ -487,9 +305,9 @@ function AddProduct(props) {
         >
           <div className=" md:pb-10 bg-transparent h-full w-full md:mt-5">
             {/* md:mt-9 pt-5*/}
-            <div className="md:px-10 px-5 pb-5 bg-white h-full w-full boxShadow">
+            <div className=" pb-5 bg-white h-full w-full boxShadow">
               <div className="grid md:grid-cols-2 grid-cols-1 w-full gap-5">
-                <div className="md:pt-0">
+                <div className="md:pt-0 pt-4">
                   <p className="text-black text-base font-normal pb-1">
                     Product Name
                   </p>
@@ -497,37 +315,13 @@ function AddProduct(props) {
                     <input
                       className="bg-transparent w-full md:h-[46px] h-[40px] pl-12 pr-5 border border-newblack rounded-[10px] outline-none text-black text-base font-light"
                       type="text"
-                      placeholder="English Name"
+                      placeholder="Product Name"
                       value={addProductsData.name}
                       required
                       onChange={(e) => {
                         setAddProductsData({
                           ...addProductsData,
                           name: e.target.value,
-                        });
-                      }}
-                    />
-                    <img
-                      className="w-[18px] h-[18px] absolute md:top-[13px] top-[10px] left-5"
-                      src="/box-add.png"
-                    />
-                  </div>
-                </div>
-                <div className="pt-0">
-                  <p className="text-black text-base font-normal pb-1">
-                    Vietnamies Name
-                  </p>
-                  <div className="relative">
-                    <input
-                      className="bg-transparent w-full md:h-[46px] h-[40px] pl-12 pr-5 border border-newblack rounded-[10px] outline-none text-black text-base font-light"
-                      type="text"
-                      placeholder="Vietnamies Name"
-                      value={addProductsData.vietnamiesName}
-                      required
-                      onChange={(e) => {
-                        setAddProductsData({
-                          ...addProductsData,
-                          vietnamiesName: e.target.value,
                         });
                       }}
                     />
@@ -580,60 +374,6 @@ function AddProduct(props) {
 
                 <div className="">
                   <p className="text-black text-base font-normal pb-1">
-                    Country of Origin
-                  </p>
-                  <div className="relative">
-                    <input
-                      className="bg-transparent w-full md:h-[46px] h-[40px] pl-12 pr-5 border border-newblack rounded-[10px] outline-none text-black text-base font-light"
-                      type="text"
-                      placeholder="Country of Origin"
-                      value={addProductsData.origin}
-                      onChange={(e) => {
-                        setAddProductsData({
-                          ...addProductsData,
-                          origin: e.target.value,
-                        });
-                      }}
-                    />
-                    <img
-                      className="w-[18px] h-[18px] absolute md:top-[13px] top-[10px] left-5"
-                      src="/box-add.png"
-                    />
-                  </div>
-                </div>
-
-                <div className="">
-                  <p className="text-black text-base font-normal pb-1">Tax Code</p>
-                  <div className="relative">
-                    <input
-                      className="bg-transparent w-full md:h-[46px] h-[40px] pl-12 pr-5 border border-newblack rounded-[10px] outline-none text-black text-base font-light"
-                      type="text"
-                      placeholder="Tax code"
-                      value={addProductsData.tax_code}
-                      onChange={(e) => {
-                        const trimmedValue = e.target.value.trimStart();
-                        setAddProductsData({
-                          ...addProductsData,
-                          tax_code: trimmedValue,
-                        });
-                      }}
-                      onBlur={(e) => {
-                        setAddProductsData({
-                          ...addProductsData,
-                          tax_code: e.target.value.trim(),
-                        });
-                      }}
-                    />
-                    <img
-                      className="w-[18px] h-[18px] absolute md:top-[13px] top-[10px] left-5"
-                      src="/box-add.png"
-                    />
-                  </div>
-                </div>
-
-
-                <div className="">
-                  <p className="text-black text-base font-normal pb-1">
                     Manufacturer Name
                   </p>
                   <div className="relative">
@@ -656,54 +396,6 @@ function AddProduct(props) {
                   </div>
                 </div>
 
-
-                <div className="">
-                  <p className="text-black text-base font-normal pb-1">
-                    Short Description
-                  </p>
-                  <div className="relative">
-                    <input
-                      className="bg-transparent w-full md:h-[46px] h-[40px] pl-12 pr-5 border border-newblack rounded-[10px] outline-none text-black text-base font-light"
-                      type="text"
-                      placeholder="Short Description"
-                      value={addProductsData.short_description}
-                      onChange={(e) => {
-                        setAddProductsData({
-                          ...addProductsData,
-                          short_description: e.target.value,
-                        });
-                      }}
-                    />
-                    <img
-                      className="w-[18px] h-[18px] absolute md:top-[13px] top-[10px] left-5"
-                      src="/box-add.png"
-                    />
-                  </div>
-                </div>
-
-                <div className="">
-                  <p className="text-black text-base font-normal pb-1">
-                    Allergens
-                  </p>
-                  <div className="relative">
-                    <input
-                      className="bg-transparent w-full md:h-[46px] h-[40px] pl-12 pr-5 border border-newblack rounded-[10px] outline-none text-black text-base font-light"
-                      type="text"
-                      placeholder="Allergens"
-                      value={addProductsData.Allergens}
-                      onChange={(e) => {
-                        setAddProductsData({
-                          ...addProductsData,
-                          Allergens: e.target.value,
-                        });
-                      }}
-                    />
-                    <img
-                      className="w-[18px] h-[18px] absolute md:top-[13px] top-[10px] left-5"
-                      src="/box-add.png"
-                    />
-                  </div>
-                </div>
                 <div className="">
                   <p className="text-black text-base font-normal pb-1">
                     Quantity
@@ -734,260 +426,7 @@ function AddProduct(props) {
                     />
                   </div>
                 </div>
-                <div className="mb-4">
-                  <p className="text-black text-base font-medium pb-2">
-                    Is Shipment Available
-                  </p>
 
-                  {/* Enable Checkbox */}
-                  <div className="flex items-center space-x-3 mb-2">
-                    <input
-                      type="checkbox"
-                      id="enableShipment"
-                      className="w-5 h-5 text-blue-600 border-gray-300 rounded focus:ring-0"
-                      checked={addProductsData.isShipmentAvailable === true}
-                      onChange={() =>
-                        setAddProductsData({
-                          ...addProductsData,
-                          isShipmentAvailable: true,
-                        })
-                      }
-                    />
-                    <label
-                      htmlFor="enableShipment"
-                      className="text-black text-base"
-                    >
-                      Yes, shipment is available
-                    </label>
-                  </div>
-
-                  {/* Disable Checkbox */}
-                  <div className="flex items-center space-x-3">
-                    <input
-                      type="checkbox"
-                      id="disableShipment"
-                      className="w-5 h-5 text-blue-600 border-gray-300 rounded focus:ring-0"
-                      checked={addProductsData.isShipmentAvailable === false}
-                      onChange={() =>
-                        setAddProductsData({
-                          ...addProductsData,
-                          isShipmentAvailable: false,
-                        })
-                      }
-                    />
-                    <label
-                      htmlFor="disableShipment"
-                      className="text-black text-base"
-                    >
-                      No, shipment is not available
-                    </label>
-                  </div>
-                </div>
-
-                <div className="mb-4">
-                  <p className="text-black text-base font-medium pb-2">
-                    Is Product is Available for Return / Exchange
-                  </p>
-
-                  {/* Enable Checkbox */}
-                  <div className="flex items-center space-x-3 mb-2">
-                    <input
-                      type="checkbox"
-                      id="enableReturn"
-                      className="w-5 h-5 text-blue-600 border-gray-300 rounded focus:ring-0"
-                      checked={addProductsData.isReturnAvailable === true}
-                      onChange={() =>
-                        setAddProductsData({
-                          ...addProductsData,
-                          isReturnAvailable: true,
-                        })
-                      }
-                    />
-                    <label
-                      htmlFor="enableReturn"
-                      className="text-black text-base"
-                    >
-                      Yes, Return / Exchange is available
-                    </label>
-                  </div>
-
-                  {/* Disable Checkbox */}
-                  <div className="flex items-center space-x-3">
-                    <input
-                      type="checkbox"
-                      id="disableReturn"
-                      className="w-5 h-5 text-blue-600 border-gray-300 rounded focus:ring-0"
-                      checked={addProductsData.isReturnAvailable === false}
-                      onChange={() =>
-                        setAddProductsData({
-                          ...addProductsData,
-                          isReturnAvailable: false,
-                        })
-                      }
-                    />
-                    <label
-                      htmlFor="disableReturn"
-                      className="text-black text-base"
-                    >
-                      No, Return / Exchange Not available
-                    </label>
-                  </div>
-                </div>
-                <div className="mb-4">
-                  <p className="text-black text-base font-medium pb-2">
-                    Is Product is Available for Next Day Delivery
-                  </p>
-
-                  {/* Enable Checkbox */}
-                  <div className="flex items-center space-x-3 mb-2">
-                    <input
-                      type="checkbox"
-                      id="enableNextDayDelivery"
-                      className="w-5 h-5 text-blue-600 border-gray-300 rounded focus:ring-0"
-                      checked={
-                        addProductsData.isNextDayDeliveryAvailable === true
-                      }
-                      onChange={() =>
-                        setAddProductsData({
-                          ...addProductsData,
-                          isNextDayDeliveryAvailable: true,
-                        })
-                      }
-                    />
-                    <label
-                      htmlFor="enableNextDayDelivery"
-                      className="text-black text-base"
-                    >
-                      Yes, Next Day Delivery is available
-                    </label>
-                  </div>
-
-                  {/* Disable Checkbox */}
-                  <div className="flex items-center space-x-3">
-                    <input
-                      type="checkbox"
-                      id="disableNextDayDelivery"
-                      className="w-5 h-5 text-blue-600 border-gray-300 rounded focus:ring-0"
-                      checked={
-                        addProductsData.isNextDayDeliveryAvailable === false
-                      }
-                      onChange={() =>
-                        setAddProductsData({
-                          ...addProductsData,
-                          isNextDayDeliveryAvailable: false,
-                        })
-                      }
-                    />
-                    <label
-                      htmlFor="disableNextDayDelivery"
-                      className="text-black text-base"
-                    >
-                      No, Next Day Delivery is Not available
-                    </label>
-                  </div>
-                </div>
-                <div className="mb-4">
-                  <p className="text-black text-base font-medium pb-2">
-                    Is Product is Available for In Store Pickup
-                  </p>
-
-                  {/* Enable Checkbox */}
-                  <div className="flex items-center space-x-3 mb-2">
-                    <input
-                      type="checkbox"
-                      id="enableInStoreAvailable"
-                      className="w-5 h-5 text-blue-600 border-gray-300 rounded focus:ring-0"
-                      checked={addProductsData.isInStoreAvailable === true}
-                      onChange={() =>
-                        setAddProductsData({
-                          ...addProductsData,
-                          isInStoreAvailable: true,
-                        })
-                      }
-                    />
-                    <label
-                      htmlFor="enableInStoreAvailable"
-                      className="text-black text-base"
-                    >
-                      Yes, Store Pickup is available
-                    </label>
-                  </div>
-
-                  {/* Disable Checkbox */}
-                  <div className="flex items-center space-x-3">
-                    <input
-                      type="checkbox"
-                      id="disableInStoreAvailable"
-                      className="w-5 h-5 text-blue-600 border-gray-300 rounded focus:ring-0"
-                      checked={addProductsData.isInStoreAvailable === false}
-                      onChange={() =>
-                        setAddProductsData({
-                          ...addProductsData,
-                          isInStoreAvailable: false,
-                        })
-                      }
-                    />
-                    <label
-                      htmlFor="disableInStoreAvailable"
-                      className="text-black text-base"
-                    >
-                      No, Store Pickup is Not available
-                    </label>
-                  </div>
-                </div>
-                <div className="mb-4">
-                  <p className="text-black text-base font-medium pb-2">
-                    Is Product is Available for CurbSide Pickup
-                  </p>
-
-                  {/* Enable Checkbox */}
-                  <div className="flex items-center space-x-3 mb-2">
-                    <input
-                      type="checkbox"
-                      id="enableCurbSidePickup"
-                      className="w-5 h-5 text-blue-600 border-gray-300 rounded focus:ring-0"
-                      checked={
-                        addProductsData.isCurbSidePickupAvailable === true
-                      }
-                      onChange={() =>
-                        setAddProductsData({
-                          ...addProductsData,
-                          isCurbSidePickupAvailable: true,
-                        })
-                      }
-                    />
-                    <label
-                      htmlFor="enableCurbSidePickup"
-                      className="text-black text-base"
-                    >
-                      Yes, CurbSide Pickup is available
-                    </label>
-                  </div>
-
-                  {/* Disable Checkbox */}
-                  <div className="flex items-center space-x-3">
-                    <input
-                      type="checkbox"
-                      id="disableCurbSidePickup"
-                      className="w-5 h-5 text-blue-600 border-gray-300 rounded focus:ring-0"
-                      checked={
-                        addProductsData.isCurbSidePickupAvailable === false
-                      }
-                      onChange={() =>
-                        setAddProductsData({
-                          ...addProductsData,
-                          isCurbSidePickupAvailable: false,
-                        })
-                      }
-                    />
-                    <label
-                      htmlFor="disableCurbSidePickup"
-                      className="text-black text-base"
-                    >
-                      No, CurbSide Pickup is Not available
-                    </label>
-                  </div>
-                </div>
               </div>
 
 
@@ -1014,18 +453,18 @@ function AddProduct(props) {
 
               <div className="pt-5">
                 <p className="text-black text-base font-normal pb-1">
-                  Long Description
+                  Description
                 </p>
                 <div className="relative">
                   <textarea
                     className="bg-transparent w-full pl-12 pr-5 py-2 border border-newblack rounded-[10px] outline-none text-black text-base font-light"
                     rows={4}
                     placeholder="Long Description"
-                    value={addProductsData.long_description}
+                    value={addProductsData.description}
                     onChange={(e) =>
                       setAddProductsData({
                         ...addProductsData,
-                        long_description: e.target.value,
+                        description: e.target.value,
                       })
                     }
                   />
@@ -1035,6 +474,7 @@ function AddProduct(props) {
                   />
                 </div>
               </div>
+
               <div className="pt-5">
                 <p className="text-black text-base font-normal pb-1">Meta Title</p>
                 <div className="relative">
@@ -1098,51 +538,6 @@ function AddProduct(props) {
               </div>
 
 
-              <div className="w-full text-sm md:text-md rounded-2xl pt-5">
-                <p className="text-black text-base font-semibold pb-1">
-                  Return Policy
-                </p>
-                <JoditEditor
-                  className="editor text-black h-[70vh] max-w-[80vh] overflow-y-auto"
-                  value={addProductsData?.ReturnPolicy}
-                  onChange={(newContent) =>
-                    setAddProductsData({
-                      ...addProductsData,
-                      ReturnPolicy: newContent,
-                    })
-                  }
-                />
-              </div>
-              <div className="w-full text-sm md:text-md rounded-2xl pt-5">
-                <p className="text-black text-base font-semibold pb-1">
-                  Warning
-                </p>
-                <JoditEditor
-                  className="editor text-black h-[70vh] max-w-[80vh] overflow-y-auto"
-                  value={addProductsData?.Warning}
-                  onChange={(newContent) =>
-                    setAddProductsData({
-                      ...addProductsData,
-                      Warning: newContent,
-                    })
-                  }
-                />
-              </div>
-              <div className="w-full text-sm md:text-md rounded-2xl pt-5">
-                <p className="text-black text-base font-semibold pb-1">
-                  Disclaimer
-                </p>
-                <JoditEditor
-                  className="editor text-black h-[70vh] max-w-[80vh] overflow-y-auto"
-                  value={addProductsData?.disclaimer}
-                  onChange={(newContent) =>
-                    setAddProductsData({
-                      ...addProductsData,
-                      disclaimer: newContent,
-                    })
-                  }
-                />
-              </div>
               <div className="pt-5">
                 <p className="text-black text-base font-normal pb-1">
                   Slug <span className="text-gray-500 text-sm">(Only text allowed, numbers and special characters are not permitted)</span>
@@ -1191,152 +586,60 @@ function AddProduct(props) {
                     />
                   </div>
                 </div>
-                <p className="text-2xl font-medium text-black pt-5">
-                  Upload Image
-                </p>
-                {varients.map((item, i) => (
-                  <div
-                    key={i}
-                    className="w-full bg-transparent border border-newblack mt-5 p-5 rounded-[10px] relative"
-                  >
-                    {/* Upload image code start  */}
-                    <div className="flex md:justify-start justify-start items-start md:items-center md:w-auto w-full pt-[25px]">
-                      <div className="relative">
-                        <div className="border-2 border-dashed border-newblack md:h-[38px] w-[38px] rounded-[5px] flex flex-col justify-center items-center bg-white">
-                          <input
-                            className="outline-none bg-light md:w-[90%] w-[85%]"
-                            type="text"
-                            value={singleImg}
-                            onChange={(text) => {
-                              setSingleImg(text.target.value);
-                            }}
-                          />
-                        </div>
+                <div className="w-full p-5 rounded-[10px] border border-gray-300 bg-white">
+                  <p className="text-2xl font-medium text-black pt-3">Upload Image</p>
 
-                        <div className="absolute md:top-[10px] top-[4px] md:left-[9px] left-[9px] cursor-pointer ">
-                          <IoAddSharp
-                            className="text-black w-[20px] h-[20px]"
-                            onClick={() => {
-                              f.current.click();
-                            }}
-                          />
-                          <input
-                            type="file"
-                            ref={f}
-                            className="hidden"
-                            onChange={(event) => {
-                              handleImageChange(event, i);
-                            }}
-                          />
-                        </div>
+                  {/* Upload Button */}
+                  <div className="flex items-center mt-5">
+                    <div className="relative">
+                      <div className="border-2 border-dashed border-black h-[38px] w-[38px] rounded-[5px] flex justify-center items-center bg-white cursor-pointer">
+                        <IoAddSharp
+                          className="text-black w-[20px] h-[20px]"
+                          onClick={() => fileRef.current.click()}
+                        />
                       </div>
-                      <p className="text-black text-base font-normal ml-5">
-                        Upload Photo
-                      </p>
-                    </div>
-
-                    <div className="flex md:flex-row flex-wrap md:gap-5 gap-4 mt-5">
-                      {item?.image?.map((ig, inx) => (
-                        <div className="relative" key={inx}>
-                          <img
-                            className="md:w-20 w-[85px] h-20 object-contain"
-                            src={ig}
-                          />
-                          <IoCloseCircleOutline
-                            className="text-red-700 cursor-pointer h-5 w-5 absolute left-[5px] top-[10px]"
-                            onClick={() => {
-                              closeIcon(ig, inx, item?.image, i);
-                            }}
-                          />
-                        </div>
-                      ))}
-                    </div>
-
-                    {/* Size input code start******** */}
-                    {Array.isArray(addProductsData?.attributes) &&
-                      addProductsData.attributes.map((attribute, id) => (
-                        <div key={id}>
-                          {attribute.name === "size" && (
-                            <div className="pt-2">
-                              <p className="text-black  text-base font-normal pb-1">
-                                Size
-                              </p>
-                              <MultiSelect
-                                className="w-[85%] "
-                                options={size}
-                                value={item.selected}
-                                onChange={(selected) => {
-                                  setvarients(
-                                    produce((draft) => {
-                                      draft[i].selected = selected;
-                                    })
-                                  );
-                                }}
-                                required
-                                labelledBy="Select Sizes"
-                              />
-                            </div>
-                          )}
-                        </div>
-                      ))}
-
-                  </div>
-                ))}
-              </div>
-
-
-              <div className="mt-8 p-6 bg-white rounded-xl border border-gray-200">
-                <h2 className="md:text-2xl text-xl font-semibold text-gray-800 mb-6">
-                  🔍 Barcode Generator
-                </h2>
-                <div className="flex w-full gap-4">
-                  <input
-                    type="Number"
-                    value={inputValue}
-                    onChange={(e) => setInputValue(e.target.value)}
-                    placeholder="Enter barcode value"
-                    className="px-4 py-3 text-base border border-gray-300 rounded-md focus:outline-none focus:ring-2  mb-4 text-black w-2/3"
-                  />
-
-                  <div
-                    onClick={handleGenerate}
-                    className=" bg-[#F38529] text-white text-center text-[14px] md:text-lg font-medium md:h-13 h-12.5 md:py-3 py-4 px-4 rounded-md transition duration-300 w-1/3 cursor-pointer"
-                  >
-                    Generate
-                  </div>
-                </div>
-                {barcodeValue && (
-                  <div className="mt-8">
-                    <h3 className="text-lg text-gray-700 font-medium mb-4">
-                      Generated Barcode:
-                    </h3>
-                    <div className="bg-gray-100 p-4 rounded-md inline-block relative">
-                      <Barcode value={barcodeValue} className="" />
-
-                      <IoCloseCircleOutline
-                        className="text-red-700 cursor-pointer h-5 w-5 absolute left-[5px] top-[10px]"
-                        onClick={() => {
-                          setBarcodeValue("");
-                          setInputValue("");
-                        }}
+                      <input
+                        type="file"
+                        ref={fileRef}
+                        className="hidden"
+                        accept="image/*"
+                        onChange={handleImageChange}
                       />
                     </div>
+                    <p className="text-black text-base font-normal ml-5">Upload Photo</p>
                   </div>
-                )}
+
+                  {/* Image Preview */}
+                  <div className="flex flex-wrap gap-4 mt-5">
+                    {images.map((img, index) => (
+                      <div key={index} className="relative">
+                        <img
+                          src={img}
+                          alt={`uploaded-${index}`}
+                          className="w-[90px] h-[90px] object-contain border rounded-lg"
+                        />
+                        <IoCloseCircleOutline
+                          className="text-red-600 cursor-pointer h-5 w-5 absolute left-1 top-1 bg-white rounded-full"
+                          onClick={() => handleDelete(img)}
+                        />
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
               </div>
 
-              {/* Pricing field code start from here */}
-              <div className="py-8 px-4">
+              <div className="py-8 px-2">
                 <h2 className="text-3xl font-semibold text-gray-800 mb-6">
                   Pricing
                 </h2>
 
-                <div className="bg-white rounded-lg shadow-md border border-gray-200 p-6">
+                <div className="bg-white rounded-lg shadow-md border border-gray-200 p-3">
                   <div className="grid md:grid-cols-4 grid-cols-1 gap-4">
                     {addProductsData?.price_slot?.map((slot, d) => (
                       <div
                         key={d}
-                        className="bg-gray-50 border border-gray-200 rounded-lg p-4 transition-all hover:shadow-sm"
+                        className="bg-gray-50 border border-gray-200 rounded-lg p-2.5 transition-all hover:shadow-sm"
                       >
                         <div className="flex justify-between items-center mb-3">
                           <h3 className="text-lg font-medium text-gray-800">
@@ -1469,7 +772,7 @@ function AddProduct(props) {
                   <div className="mt-6 flex justify-end">
                     <button
                       type="button"
-                      className="bg-[#F38529] text-white px-6 py-3 rounded-lg font-medium flex items-center gap-2 hover:bg-[#F38529]/90 transition-colors"
+                      className="bg-custom-gray cursor-pointer text-white md:text-lg text-base  px-8 py-2 rounded-lg font-medium flex items-center gap-2 transition-colors"
                       onClick={() => {
                         setAddProductsData({
                           ...addProductsData,
@@ -1505,15 +808,24 @@ function AddProduct(props) {
                 <div className="relative flex justify-center items-center md:w-auto w-full"></div>
                 <div className="relative flex justify-center items-center md:w-auto w-full">
                   <button
-                    className="bg-[#F38529] md:pr-8 md:h-[50px] h-[40px] md:w-[188px] w-full rounded-[5px] md:text-xl text-base text-white font-normal"
+                    className="bg-custom-gray px-8 py-2 rounded-[5px] md:text-lg text-base text-white font-normal cursor-pointer flex justify-center items-center gap-2"
                     type="submit"
                   >
                     {router?.query?.id ? "Update" : "Submit"}
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      className="h-5 w-5"
+                      viewBox="0 0 20 20"
+                      fill="currentColor"
+                    >
+                      <path
+                        fillRule="evenodd"
+                        d="M10 3a1 1 0 00-1 1v5H4a1 1 0 100 2h5v5a1 1 0 102 0v-5h5a1 1 0 100-2h-5V4a1 1 0 00-1-1z"
+                        clipRule="evenodd"
+                      />
+                    </svg>
                   </button>
-                  <img
-                    className="md:w-[8px] w-[7px] md:h-[17px] h-[15px] absolute md:top-[18px] top-[13px] md:right-8 right-4 object-contain"
-                    src="/nextImg.png"
-                  />
+
                 </div>
               </div>
             </div>

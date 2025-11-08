@@ -284,7 +284,7 @@ function Inventory(props) {
   };
 
   return (
-    <div className=" w-full h-full bg-transparent md:pt-5 pt-5 pb-5 pl-5 pr-5">
+    <div className=" w-full h-full bg-transparent p-6">
       {viewPopup && (
         <div className="fixed top-0 left-0 w-screen h-screen bg-black/30 flex justify-center items-center z-50">
           <div className="relative w-[300px] md:w-[360px] h-auto  bg-white rounded-[15px] m-auto">
@@ -295,7 +295,7 @@ function Inventory(props) {
               <RxCrossCircled className="h-full w-full font-semibold " />
             </div>
 
-            <div className="px-5 py-10">
+            <div className=" py-10">
               <div className=" w-full flex gap-2 pb-5">
                 <img
                   src={popupData?.varients[0].image[0]}
@@ -327,15 +327,15 @@ function Inventory(props) {
         </div>
       )}
 
-      <div className="md:pt-[0px] pt-[0px] h-full">
+      <div className="h-full">
         <p className="text-black font-bold md:text-[32px] text-2xl md:ms-5 ms-0">
           <span
-            className={`inline-block w-2 h-8 bg-[#F38529]  mr-3 rounded `}
+            className={`inline-block w-2 h-8 bg-custom-gray  mr-3 rounded `}
           ></span>
           Inventory
         </p>
         {/* mt-3 */}
-        <div className="bg-white  pt-5 md:pb-32  px-5  rounded-[12px] h-full overflow-y-scroll  scrollbar-hide overflow-scroll pb-28 md:mt-5 mt-5">
+        <div className="bg-white  pt-5 md:pb-32  rounded-[12px] h-full overflow-y-scroll  scrollbar-hide overflow-scroll pb-28 md:mt-5 mt-5">
           <div className="">
             <div className="flex md:flex-row flex-col md:justify-between md:items-end gap-3">
               <input
@@ -347,7 +347,7 @@ function Inventory(props) {
               />
 
               <button
-                className="text-white bg-[#F38529] px-5 py-2.5 rounded cursor-pointer"
+                className="text-white bg-custom-gray px-5 py-2.5 rounded cursor-pointer"
                 onClick={() => router.push("/add-product")}
               >
                 Add Product

@@ -12,9 +12,9 @@ function Categories(props) {
   const router = useRouter();
   const [data, setData] = useState({
     name: "",
-    image: "",
-    metatitle: "",
-    metadescription: "",
+    // image: "",
+    // metatitle: "",
+    // metadescription: "",
   });
   const categoryRef = useRef();
   const [loadTypeData, setloadTypeData] = useState([]);
@@ -57,7 +57,7 @@ function Categories(props) {
   const submit = (e) => {
     e.preventDefault();
 
-    if (!data.name || !data.image || !data.metatitle || !data.metadescription) {
+    if (!data.name) {
       props.toaster({
         type: "error",
         message: "please fill required details.",
@@ -212,7 +212,7 @@ function Categories(props) {
                 required
               />
             </div>
-            <div className="mt-5 relative">
+            {/* <div className="mt-5 relative">
               <div className="flex flex-col justify-start items-start">
                 <p className="text-black text-sm font-semibold pb-2">
                   Upload image
@@ -245,8 +245,8 @@ function Categories(props) {
                   onChange={handleImageChange}
                 />
               </div>
-            </div>
-            <div className="flex flex-col justify-start items-start md:w-auto w-full mt-4">
+            </div> */}
+            {/* <div className="flex flex-col justify-start items-start md:w-auto w-full mt-4">
               <p className="text-black text-sm font-semibold pb-2">
                 Meta Title
               </p>
@@ -275,13 +275,13 @@ function Categories(props) {
                 }}
                 required
               ></textarea>
-            </div>
+            </div> */}
 
           </div>
 
           <div className="flex justify-center items-center pt-5 pb-3">
             <button
-              className="md:h-[45px] h-[40px] md:w-[274px] w-full bg-[#F38529] rounded-[10px] md:text-lg text-base text-white cursor-pointer font-semibold"
+              className="md:h-[45px] h-[40px] md:w-[274px] w-full bg-custom-gray rounded-[10px] md:text-lg text-base text-white cursor-pointer font-semibold"
               type="submit"
             >
               {editid ? ("Update Now") : ("Add Now")}
@@ -315,7 +315,7 @@ function Categories(props) {
               </div>
               <div className="flex justify-center items-center">
                 <FiEdit
-                  className="md:h-[30px] h-[20px] md:w-[30px] w-[20px] text-[#F38529] mr-[20px] cursor-pointer"
+                  className="md:h-[30px] h-[20px] md:w-[30px] w-[20px] text-black mr-[20px] cursor-pointer"
                   onClick={() => {
                     seteditid(item._id);
                     setData(item);
@@ -324,7 +324,7 @@ function Categories(props) {
                   }}
                 />
                 <IoCloseCircleOutline
-                  className="md:h-[30px] h-[20px] md:w-[30px] w-[20px] text-[#F38529] cursor-pointer"
+                  className="md:h-[30px] h-[20px] md:w-[30px] w-[20px] text-black cursor-pointer"
                   onClick={() => deleteCategory(item?._id)}
                 />
               </div>

@@ -123,7 +123,7 @@ const PasswordManager = ({ toaster, loader }) => {
     return (
         <div className="mb-8 md:mt-10 mt-4 m-2 px-6">
             <h2 className="text-gray-800 font-bold md:text-3xl text-2xl mb-4 flex items-center">
-                <span className="w-1 h-8 bg-[#F38529] rounded mr-3"></span>
+                <span className="w-1 h-8 bg-custom-gray rounded mr-3"></span>
                 Password Manager
             </h2>
 
@@ -248,7 +248,7 @@ const PasswordManager = ({ toaster, loader }) => {
                                 type="button"
                                 onClick={handleSubmit}
                                 disabled={isLoading}
-                                className="text-white bg-[#F38529]  hover:bg-orange-600 disabled:bg-gray-400 disabled:cursor-not-allowed transition-colors rounded-lg text-md font-medium py-2.5 px-6 shadow-sm"
+                                className="text-white bg-custom-gray  hover:bg-orange-600 disabled:bg-gray-400 disabled:cursor-not-allowed transition-colors rounded-lg text-md font-medium py-2.5 px-6 shadow-sm"
                             >
                                 {isLoading ? 'Changing Password...' : 'Change Password'}
                             </button>
@@ -283,7 +283,7 @@ const PasswordManager = ({ toaster, loader }) => {
                             </button>
                             <button
                                 type="button"
-                                className="px-4 cursor-pointer py-2 bg-[#F38529] text-white rounded-md hover:bg-orange-600 disabled:bg-gray-400 transition-colors"
+                                className="px-4 cursor-pointer py-2 bg-custom-gray text-white rounded-md disabled:bg-gray-400 transition-colors"
                                 onClick={confirmPasswordChange}
                                 disabled={isLoading}
                             >

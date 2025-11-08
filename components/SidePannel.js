@@ -46,56 +46,55 @@ const SidePannel = ({ setOpenTab, openTab }) => {
       img: <MdInventory2 className="text-3xl" />,
       access: ["ADMIN", "EMPLOYEE"],
     },
-
-    {
-      href: "/queries",
-      title: "Queries",
-      img: <FaCircleQuestion className="text-3xl" />,
-      access: ["ADMIN", "EMPLOYEE"],
-    },
+    // {
+    //   href: "/queries",
+    //   title: "Queries",
+    //   img: <FaCircleQuestion className="text-3xl" />,
+    //   access: ["ADMIN", "EMPLOYEE"],
+    // },
     {
       href: "/orders",
       title: "Orders",
       img: <FaShoppingBag className="text-3xl" />,
       access: ["ADMIN", "EMPLOYEE"],
     },
-    {
-      href: "/employees",
-      title: "Employee",
-      img: <FaUserTie className="text-3xl" />,
-      access: ["ADMIN"],
-    },
-    {
-      href: "/drivers",
-      title: "Driver",
-      img: <RiEBike2Fill className="text-3xl" />,
-      access: ["ADMIN"],
-    },
+    // {
+    //   href: "/employees",
+    //   title: "Employee",
+    //   img: <FaUserTie className="text-3xl" />,
+    //   access: ["ADMIN"],
+    // },
+    // {
+    //   href: "/drivers",
+    //   title: "Driver",
+    //   img: <RiEBike2Fill className="text-3xl" />,
+    //   access: ["ADMIN"],
+    // },
     {
       href: "/categories",
       title: "Categories",
       img: <MdCategory className="text-3xl" />,
       access: ["ADMIN"],
     },
-    {
-      href: "/SaleProduct",
-      title: "Sale",
-      img: <BiSolidOffer className="text-3xl" />,
-      access: ["ADMIN"],
-    },
+    // {
+    //   href: "/SaleProduct",
+    //   title: "Sale",
+    //   img: <BiSolidOffer className="text-3xl" />,
+    //   access: ["ADMIN"],
+    // },
 
-    {
-      href: "/Coupan",
-      title: "Coupon",
-      img: <RiCoupon3Fill className="text-3xl" />,
-      access: ["ADMIN"],
-    },
-    {
-      href: "/review",
-      title: "Reviews",
-      img: <MdRateReview className="text-3xl" />,
-      access: ["ADMIN"],
-    },
+    // {
+    //   href: "/Coupan",
+    //   title: "Coupon",
+    //   img: <RiCoupon3Fill className="text-3xl" />,
+    //   access: ["ADMIN"],
+    // },
+    // {
+    //   href: "/review",
+    //   title: "Reviews",
+    //   img: <MdRateReview className="text-3xl" />,
+    //   access: ["ADMIN"],
+    // },
     {
       href: "/Notification",
       title: "Customer Management",
@@ -108,12 +107,12 @@ const SidePannel = ({ setOpenTab, openTab }) => {
       img: <MdOutlineContentPasteOff className="text-3xl" />,
       access: ["ADMIN"],
     },
-    {
-      href: "/TeamMemberSetting",
-      title: "Member Image",
-      img: <FaFileImage className="text-3xl" />,
-      access: ["ADMIN"],
-    },
+    // {
+    //   href: "/TeamMemberSetting",
+    //   title: "Member Image",
+    //   img: <FaFileImage className="text-3xl" />,
+    //   access: ["ADMIN"],
+    // },
     {
       href: "/passwordmanager",
       title: "Password Manager",

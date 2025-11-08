@@ -161,21 +161,21 @@ function ContentManagement(props) {
      
       <div className="max-h-[80vh] h-full overflow-y-scroll  scrollbar-hide overflow-scroll pb-20 ">
         <div className="bg-white rounded-xl shadow-md overflow-hidden mb-6">
-          <div className="p-6 border-l-4 border-[#F38529] flex flex-col md:flex-row items-center justify-between">
+          <div className="p-6  flex flex-col md:flex-row items-center justify-between">
             <div className="w-full text-center md:text-left mb-4 md:mb-0">
               <p className="text-gray-500 font-medium">
                 {moment(new Date()).format("dddd, DD MMM YYYY")}
               </p>
               <h2 className="text-2xl md:text-3xl text-black font-bold mt-1">
                 Welcome,{" "}
-                <span className="text-[#F38529]">{user?.type || "Admin"}</span>
+                <span className="text-black ">{user?.type || "Admin"}</span>
               </h2>
             </div>
             <div className="flex items-center gap-3">
               <button
                 className={`py-2 px-6 rounded-lg transition-all duration-300 font-medium ${
                   tab === "CONTENT"
-                    ? "bg-[#F38529] text-white shadow-lg shadow-orange-200"
+                    ? "bg-custom-gray text-white shadow-lg shadow-orange-200"
                     : "bg-white border-2 text-[#F38529] border-[#F38529] hover:bg-orange-50"
                 }`}
                 onClick={() => setTab("CONTENT")}
@@ -216,14 +216,14 @@ const PolicySection = ({
       <div className="bg-white rounded-t-xl shadow-md">
         <div className="p-5 border-b border-gray-100">
           <h3 className="text-xl text-black md:text-2xl font-bold flex items-center">
-            <span className="inline-block w-3 h-8 bg-[#F38529] mr-3 rounded text-black"></span>
+            <span className="inline-block w-3 h-8 bg-custom-gray mr-3 rounded text-black"></span>
             {title}
           </h3>
         </div>
 
         <div className="p-4 md:p-6">
           <div className="border rounded-lg overflow-hidden">
-            <div className="bg-gradient-to-r from-[#F38529] to-orange-400 h-2"></div>
+            <div className="bg-custom-gray h-2"></div>
 
             <div className="p-1 text-black">
               <JoditEditor
@@ -257,7 +257,7 @@ const PolicySection = ({
           <div className="mt-4 flex justify-end">
             <button
               onClick={onSubmit}
-              className="flex items-center gap-2 bg-[#F38529] hover:bg-orange-600 text-white font-medium py-2 px-6 rounded-lg transition-all duration-300 shadow-md hover:shadow-lg"
+              className="flex items-center gap-2 bg-custom-gray hover:bg-orange-600 text-white font-medium py-2 px-6 rounded-lg transition-all duration-300 shadow-md hover:shadow-lg"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"

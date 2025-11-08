@@ -141,7 +141,7 @@ function CustomerDashboard(props) {
                 month: parseInt(selectedMonth)
             };
 
-            const response = await Api('post', '/getCustomerDashboard', data, router);
+            const response = await Api('post', 'getCustomerDashboard', data, router);
             setCustomerDashboardData(response?.data);
             console.log(response.data)
         } catch (error) {
@@ -394,10 +394,10 @@ function CustomerDashboard(props) {
             accessor: "number",
             Cell: renderPhoneNumber,
         },
-        {
-            Header: "Action",
-            Cell: renderMessageAction,
-        },
+        // {
+        //     Header: "Action",
+        //     Cell: renderMessageAction,
+        // },
         {
             Header: "Status",
             Cell: renderStatusAction
@@ -432,7 +432,7 @@ function CustomerDashboard(props) {
                             />
                         </div>
 
-                        <div className="flex items-center gap-2">
+                        {/* <div className="flex items-center gap-2">
                             <button
                                 className="inline-flex items-center px-4 py-2.5 bg-[#F38529] text-white rounded-lg hover:bg-orange-600"
                                 onClick={openBulkMessageModal}
@@ -440,7 +440,7 @@ function CustomerDashboard(props) {
                                 <Mail className="h-4 w-4 mr-2" />
                                 <span>Bulk Message</span>
                             </button>
-                        </div>
+                        </div> */}
                     </div>
                 </div>
             </div>
